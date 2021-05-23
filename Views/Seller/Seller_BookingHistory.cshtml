@@ -1,0 +1,179 @@
+﻿@model HouseRentManagement.ViewModels.AllViewsModels
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Seller BookingDetails</title>
+    <style>
+
+
+        .booking-lists {
+            margin-top: 100px;
+        }
+
+        .card {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        .table-sm th,
+        .table-sm td {
+            white-space: nowrap;
+            width: 1%;
+        }
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark p-3"
+             style="background-color: rgba(26, 26, 31, 0.7)">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarTogglerDemo01"
+                    aria-controls="navbarTogglerDemo01"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <a class="navbar-brand ml-4" href="@Url.Action("Index")">HOUSERENT</a>
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="@Url.Action("Index")">HOME</a>
+                        </li>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="@Url.Action("BookingDetails", new { @id = Model.GetSellers.FirstOrDefault().Id })">BOOKING DETAILS</a>
+                        </li>
+                        <li class="nav-item mr-2 active">
+                            <a class="nav-link" href="@Url.Action("BookingHistory", new { @id = Model.GetSellers.FirstOrDefault().Id })">REQUEST HISTORY</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav navbar-right">
+                        <li class="nav-item mr-2">
+                            <a role="button"
+                               class="btn btn-primary"
+                               href="@Url.Action("CreateProperty")">
+                                Add Property
+                            </a>
+                        </li>
+                        <li class="nav-item mr-2 ">
+                            <a role="button"
+                               class="btn btn-danger"
+                               href="@Url.Action("Logout")">
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+    <div class="booking-lists">
+        @if (Model.GetBookings != null)
+        {
+            foreach (var item in Model.GetBookings)
+            {
+                if (item.Booking_Status != "Requested")
+                {
+                    foreach (var getCustomer in Model.GetCustomers.Where(c => c.Id == item.CustomerId))
+                    {
+
+                        <div class="card" style="max-width: 100%; border-radius: 10px">
+                            <div class="row no-gutters">
+                                <div class="col-md-2 m-4">
+                                    <img src="@Url.Content(getCustomer.ProfilePic)"
+                                         style="border-radius: 50%"
+                                         class="w-100"
+                                         height="250" />
+                                </div>
+                                <div class="col-md-9 m-4">
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            <hr />
+                                            <table class="table-responsive table-fit table-sm">
+                                                <thead class="thead-inverse">
+                                                    <tr>
+                                                        <th colspan="2">
+                                                            <h4>@getCustomer.Name</h4>
+                                                            <small class="text-muted">is intersted in your rental house</small>
+                                                        </th>
+                                                        <!-- <th></th> -->
+                                                        <th>
+                                                            <small class="text-muted">Mobile Number</small>
+                                                            <h5>@getCustomer.MobileNumber</h5>
+                                                        </th>
+                                                        <th>
+                                                            <small class="text-muted">Mail</small>
+                                                            <h5>@getCustomer.Email</h5>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                @foreach (var getProperty in Model.GetProperties.Where(c => c.Id == item.PropertyId))
+                                                {
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <h4>@getProperty.Property_Name</h4>
+                                                                <small class="text-muted m-0">@getProperty.Property_Locality,@getProperty.Property_City </small>
+                                                            </td>
+                                                            <td>
+                                                                <small class="text-muted">BHK</small><br />
+                                                                @getProperty.BHK
+                                                            </td>
+                                                            <td>
+                                                                <small class="text-muted">Monthly Rent</small><br />
+                                                                @getProperty.Monthly_Rent
+                                                            </td>
+                                                            <td>
+                                                                <small class="text-muted">Dated on</small><br />
+                                                                @item.Booked_Date
+
+                                                            </td> 
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            </table>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    @if (item.Booking_Status == "Declined")
+                                    {
+                                    <label class="card p-2 alert-danger font-weight-bolder text-center text-white m-1">Declined</label>
+                                    }
+                                    else
+                                    {
+                                    <label class="card p-2 alert-success font-weight-bolder text-center text-white m-1">Accepted</label>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+            }
+        }
+        @if (Model.GetBookings == null)
+        {
+            <label class="text-black-50 text-center m-5">You didn't have any Request for your Houses</label>
+        }
+    </div>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+</body>
+</html>

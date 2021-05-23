@@ -1,0 +1,203 @@
+﻿@model HouseRentManagement.Models.Property_Details
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PropertyDetails</title>
+
+    <link href="~/StyleSheet/SellerCSS/Seller_PropertyDetails.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+    <div class="modal fade" id="delete-property">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Are you Sure?</div>
+                </div>
+                <div class="modal-body" style="font-size:20px">
+                    By clicking Delete button the current house Details will be Deleted
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group-lg">
+                        <button type="submit" id="btnDelete" class="btn btn-danger mr-1">Delete</button>
+                        <button type="submit" id="btnCancel" class="btn btn-secondary mr-1">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center text-uppercase">
+                Detailed Information of House
+            </h3>
+
+
+            <div class="card-text">
+                <h4> @Html.DisplayFor(model => model.Property_Name)<i class="fa fa-home" aria-hidden="true"></i></h4>
+
+                <table class="table table-borderless table-responsive">
+
+                    <tbody>
+                        <tr>
+                            <td>Property Type</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Property_Type)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>:</td>
+                            <td>
+                                <b>
+                                    @Html.DisplayFor(model => model.Property_Locality),<br />
+                                    @Html.DisplayFor(model => model.Property_City),<br />
+                                    @Html.DisplayFor(model => model.Property_Pincode),<br />
+                                    @Html.DisplayFor(model => model.Property_State).
+                                </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Construction_Status)</b></td>
+                        </tr>
+                        <tr>
+                            <td>BHK</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.BHK)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Balcony</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Balcony)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Floors</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Floors)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Furnishing</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Furnish_Type)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Preferred Tenant</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Preferred_Tenant)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Property Age</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Property_Age) Years</b></td>
+                        </tr>
+                        <tr>
+                            <td>Facing Side</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Facing)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Property Size</td>
+                            <td>:</td>
+                            <td><b>@Html.DisplayFor(model => model.Property_Size) Sq.Ft.</b></td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Rent </td>
+                            <td>:</td>
+                            <td><b>&#8377;@Html.DisplayFor(model => model.Monthly_Rent)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Description </td>
+                            <td>:</td>
+                            <td>
+                                <b>
+                                    @if (Model.Description == null)
+                                    {<label>None</label>}
+                                    else
+                                    {
+                                        @Html.DisplayFor(model => model.Description)}
+                                </b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr />
+            <div id="images">
+                <h4>PICTURES <i class="fa fa-picture-o" aria-hidden="true"></i></h4>
+                <ul class="home">
+                    <li><img src="@Url.Content(Model.Front_View_img)" /></li>
+                    <li><img src="@Url.Content(Model.Hall_img)" /></li>
+                    <li><img src="@Url.Content(Model.Bedroom_img)" /></li>
+                    <li><img src="@Url.Content(Model.Kitchen_img)" /></li>
+                </ul>
+            </div>
+
+
+            <hr />
+        </div>
+        <div class="float-right">
+            <a class="btn btn-secondary float-left col-2 ml-4" href="@Url.Action("Index")" role="button">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+            </a>
+            <a role="button" class="btn btn-danger mr-4 float-right col-2" id="deleteModal" data-id="@(Model.Id)">
+                Delete
+            </a>
+            <a role="button"
+               class="btn btn-primary mr-1 float-right col-3"
+               href="@Url.Action("EditProperty", new { @id =Html.DisplayFor(model=>model.Id)})">
+                Edit
+            </a>
+        </div>
+    </div>
+    <input type="hidden" id="hiddenId" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnDelete").click(function () {
+                var _id = $("#hiddenId").val();
+                console.log(_id);
+                $.ajax({
+                    type: "POST",
+                    url: "/Seller/DeleteProperty/@Model.Id",
+                    data: { id: _id },
+                    success: function () {
+
+                        $("#delete-property").modal("hide");
+                        $("#hiddenId").val(null);
+                        window.location.href = "/Seller/Index"
+                    }
+
+                })
+            })
+            $("#deleteModal").click(function () {
+                var id = $(this).data("id");
+                $("#hiddenId").val(id);
+                console.log(id)
+                $("#delete-property").modal("show")
+            });
+            $("#btnCancel").click(function () {
+                window.location.href = "/Seller/ViewPropertyDetails/@Model.Id"
+            })
+        });
+
+    </script>
+
+</body>
+</html>
+

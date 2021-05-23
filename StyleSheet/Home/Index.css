@@ -1,0 +1,21 @@
+﻿html {
+    font-size: 18px;
+}
+body {
+    scroll-behavior: smooth;
+}
+
+#center {
+    width: 97%;
+    margin: 70px 0px 10px 20px;
+    padding: 30px;
+}
+
+    #center img {
+        border-radius: 20px;
+    }
+
+.table-sm th, .table-sm td {
+    white-space: nowrap;
+    width: 1%;
+}

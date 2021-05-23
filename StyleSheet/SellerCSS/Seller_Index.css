@@ -1,0 +1,81 @@
+﻿body{
+    font-size:18px;
+}
+#side {
+    margin: 90px 20px 30px 0px;
+    width: 22%;
+}
+
+#center {
+    width: 74%;
+    margin: 90px 0px 10px 20px;
+}
+
+#side table {
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+}
+
+th {
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-img-top,
+.form-row .card {
+    border-radius: 20px;
+}
+
+.col-md-4 {
+    margin: 20px 0px;
+}
+ .col-md-4:hover {
+        transform: translateY(-2px);
+        transition: 0.5s;
+    }
+
+ .col-md-4:active {
+        transform: scaleX(0.95) translateY(4px);
+    }
+
+.card-img-top {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.card-img-overlay {
+    margin-top: 140px;
+}
+
+@media (max-width: 1020px) {
+    *,
+    h4,
+    h5,
+    table th {
+        font-size: 10px;
+    }
+
+    #center {
+        width: 65%;
+    }
+
+    .col-md-4 {
+        margin: 2px;
+    }
+
+    #side .card-img-top {
+        height: 100px;
+        width: 100px;
+        margin: 0px;
+    }
+
+    .card {
+        padding: 2px;
+    }
+}

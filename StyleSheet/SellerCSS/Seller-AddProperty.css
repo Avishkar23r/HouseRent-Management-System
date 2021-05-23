@@ -1,0 +1,91 @@
+﻿#form-content {
+    width: 73%;
+    margin: 90px 00px 30px 10px;
+}
+
+#side-menu {
+    width: 25%;
+    margin: 90px 10px 30px 00px;
+    border: none;
+    height: 100%;
+}
+
+#menu ul li {
+    padding: 20px;
+    font-size: 22px;
+    margin: 50px 0px;
+    list-style: none;
+    border-radius: 10px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    background-color: #fb432d;
+    text-transform: uppercase;
+}
+
+    #menu ul li:hover {
+        transform: translateY(-2px);
+        transition: 0.5s;
+    }
+
+    #menu ul li:active {
+        transform: scaleX(0.95) translateY(4px);
+    }
+
+/*Radio Buttons*/
+input[type="radio"] {
+    display: none;
+}
+
+.radio-button {
+    border: solid 2px #5c3add;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+input[type="radio"]:checked + .radio-button {
+    background-color: #5c3add;
+    color: whitesmoke;
+}
+
+.control-label {
+    float: left;
+}
+/*Hiding Navbar*/
+.navbar {
+    transition:top 0.5s ease;
+}
+.navbar-hide {
+    top: -100px;
+}
+#North-West{
+    margin-left:50px;
+}
+
+@media (max-width: 1020px) {
+    #form-content {
+        width: 65%;
+        font-size: 10px;
+    }
+
+    #side-menu {
+        font-size: 10px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    #menu ul li {
+        padding: 10px;
+        margin: 20px;
+        font-size: 10px;
+    }
+}

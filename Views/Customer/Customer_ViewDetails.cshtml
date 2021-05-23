@@ -1,0 +1,175 @@
+﻿@model HouseRentManagement.ViewModels.SellerViewModel
+
+@{
+    Layout = null;
+    var Customerid = ViewData["CustomerId"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PropertyDetails</title>
+
+    <link href="~/StyleSheet/Customer/Customer_ViewDetails.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center text-uppercase">
+                Detailed Information of House
+            </h3>
+            @foreach (var item in Model.PropertyDetails)
+            {
+
+                <div class="card-text">
+                    <h4>@item.Property_Name.ToUpper()<i class="fa fa-home" aria-hidden="true"></i></h4>
+
+                    <table class="table table-borderless table-responsive">
+
+                        <tbody>
+                            <tr>
+                                <td>Property Type</td>
+                                <td>:</td>
+                                <td><b>@item.Property_Type</b></td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>:</td>
+                                <td>
+                                    <b>
+                                        @item.Property_Locality,<br />
+                                        @item.Property_City,<br />
+                                        @item.Property_Pincode,<br />
+                                        @item.Property_State
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>:</td>
+                                <td><b>@item.Construction_Status</b></td>
+                            </tr>
+                            <tr>
+                                <td>BHK</td>
+                                <td>:</td>
+                                <td><b>@item.BHK</b></td>
+                            </tr>
+                            <tr>
+                                <td>Balcony</td>
+                                <td>:</td>
+                                <td><b>@item.Balcony</b></td>
+                            </tr>
+                            <tr>
+                                <td>Floors</td>
+                                <td>:</td>
+                                <td><b>@item.Floors</b></td>
+                            </tr>
+                            <tr>
+                                <td>Furnishing</td>
+                                <td>:</td>
+                                <td><b>@item.Furnish_Type</b></td>
+                            </tr>
+                            <tr>
+                                <td>Preferred Tenant</td>
+                                <td>:</td>
+                                <td><b>@item.Preferred_Tenant</b></td>
+                            </tr>
+                            <tr>
+                                <td>Property Age</td>
+                                <td>:</td>
+                                <td><b>@item.Property_Age</b></td>
+                            </tr>
+                            <tr>
+                                <td>Facing Side</td>
+                                <td>:</td>
+                                <td><b>@item.Furnish_Type</b></td>
+                            </tr>
+                            <tr>
+                                <td>Property Size</td>
+                                <td>:</td>
+                                <td><b>@item.Property_Size  Sq.Ft.</b></td>
+                            </tr>
+                            <tr>
+                                <td>Monthly Rent </td>
+                                <td>:</td>
+                                <td><b>&#8377;@item.Monthly_Rent</b></td>
+                            </tr>
+                            <tr>
+                                <td>Description </td>
+                                <td>:</td>
+                                <td>
+                                    <b>
+                                        @if (item.Description == null)
+                                        {<label>None</label>}
+                                        else
+                                        {
+                                            @item.Description}
+                                    </b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <div id="images">
+                    <h4>PICTURES <i class="fa fa-picture-o" aria-hidden="true"></i></h4>
+                    <ul class="home">
+                        <li><img src="@Url.Content(item.Front_View_img)" /></li>
+                        <li><img src="@Url.Content(item.Hall_img)" /></li>
+                        <li><img src="@Url.Content(item.Bedroom_img)" /></li>
+                        <li><img src="@Url.Content(item.Kitchen_img)" /></li>
+                    </ul>
+                </div>
+                <hr />
+
+                foreach (var sellers in Model.SellerData.Where(C => C.Id == item.SellerID))
+                {
+                    <h4>
+                        OWNER INFORMATION
+                        <i class="fa fa-user" aria-hidden="true" Owner Info></i>
+                    </h4>
+
+                    <div style="max-width: 100%; margin: 30px 00px 00px 200px">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <img src="@Url.Content(sellers.ProfilePic)"
+                                     class="rounded-circle"
+                                     width="200"
+                                     height="170" />
+                            </div>
+                            <div class="card-body col-sm-5" style="margin: 00px 00px 0px -90px">
+                                <div class="card-text">
+                                    <ul style="
+                      list-style-type: none;
+                      font-size: 25px;">
+                                        <li><strong>@sellers.Name</strong></li>
+                                        <li>@sellers.MobileNumber</li>
+                                        <li>@sellers.Email</li>
+                                        <li>@sellers.State</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <hr />
+
+                <div>
+                    <a class="btn btn-secondary float-left col-2" href="@Url.Action("CustomerHome")" role="button">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+                    </a>
+                    <a class="btn btn-success float-right col-4" href="@Url.Action("RequestingHouse", new { @id = item.Id, @CustomerID =Customerid})" role="button">Make a Request</a>
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

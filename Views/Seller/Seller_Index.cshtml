@@ -1,0 +1,143 @@
+﻿@model HouseRentManagement.ViewModels.SellerViewModel
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SellerIndex</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="~/StyleSheet/SellerCSS/Seller_Index.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark p-3"
+         style="background-color: rgba(26, 26, 31, 0.7)">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand ml-4" href="@Url.Action("Index")">HOUSERENT</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item mr-2 active">
+                        <a class="nav-link" href="@Url.Action("Index")">HOME</a>
+
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="@Url.Action("BookingDetails", new { @id = Model.SellerData.FirstOrDefault().Id })">BOOKING DETAILS</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="@Url.Action("BookingHistory", new { @id = Model.SellerData.FirstOrDefault().Id })">REQUEST HISTORY</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-right">
+                    <li class="nav-item mr-2">
+                        <a role="button"
+                           class="btn btn-primary"
+                           href="@Url.Action("CreateProperty")">
+                            Add Property
+                        </a>
+                    </li>
+                    <li class="nav-item mr-2 ">
+                        <a role="button"
+                           class="btn btn-danger"
+                           href="@Url.Action("Logout")">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <!-- Main Card -->
+    <div class="card float-left" id="center">
+        <div class="card-body">
+            <h4 class="card-title">
+                PROPERTIES
+                <i class="fa fa-home" aria-hidden="true"></i>
+            </h4>
+            <div class="form-row">
+                @foreach (var item in Model.PropertyDetails)
+                {
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top"
+                                 src="@Url.Content(@item.Front_View_img)"
+                                 height="200"
+                                 alt="Card-image" />
+                            <div class="card-body">
+                                <div class="float-left"> <h5 class="card-title font-weight-bolder text-uppercase"><u>@item.Property_Name</u></h5></div>
+                                <p class="float-right">&#8377;@item.Monthly_Rent</p>
+                                <br />
+                                <p class="card-text">
+                                    <h6 class="float-left">@item.Current_Status</h6>
+                                    <a href="@Url.Action("ViewPropertyDetails","Seller",new{@id=item.Id})" class="float-right text-muted">View Details</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Side Card -->
+    <div class="card float-right" id="side">
+        <div class="card-body">
+            <h4 class="card-title">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                PROFILE
+                <a href="@Url.Action("Edit", "Seller",new { @id=Model.SellerData.FirstOrDefault().Id})">
+                    <i class="fa fa-pencil-square-o"
+                       aria-hidden="true"
+                       style="float: right; color:black"></i>
+                </a>
+            </h4>
+            <div class="card-text">
+                @foreach (var item in Model.SellerData)
+                {
+
+                    <img class="card-img-top rounded-circle"
+                         src="@Url.Content(@item.ProfilePic)"
+                         alt="profile"
+                         height="250"
+                         style="padding: 5px 25px" />
+                }
+
+
+                <table class="table-responsive-md">
+                    <tr>
+                        <th> @Html.DisplayFor(model => model.SellerData.FirstOrDefault().Name)</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td> @Html.DisplayFor(model => model.SellerData.FirstOrDefault().Email)</td>
+                        </tr>
+                        <tr>
+                            <td> @Html.DisplayFor(model => model.SellerData.FirstOrDefault().MobileNumber)</td>
+                        </tr>
+                        <tr>
+                            <td style="text-transform:uppercase;"> @Html.DisplayFor(model => model.SellerData.FirstOrDefault().State)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

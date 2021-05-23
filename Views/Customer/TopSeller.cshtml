@@ -1,0 +1,91 @@
+﻿@model HouseRentManagement.ViewModels.SellerRanking
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TopSeller</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark"
+             style="background-color: rgba(26, 26, 31, 0.7)">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarTogglerDemo01"
+                    aria-controls="navbarTogglerDemo01"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse m-auto" id="navbarTogglerDemo01">
+
+                <h1 class="navbar-brand m-auto" style="font-size:30px">
+                    TOP SELLERS
+                </h1>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <a class="m-auto" href="@Url.Action("CustomerHome")"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back to Home</a>
+
+        <div class="card m-2" style="border-top:none;">
+            <table class="table table-hover ">
+                <tr>
+                    <th>Top Sellers</th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Phone Number
+                    </th>
+                    <th>
+                        Profile
+                    </th>
+                </tr>
+                @{
+
+                    int rank = 1;
+                }
+                @foreach (var item in Model.TopSellers)
+                {
+
+                    foreach (var Getseller in Model.SellerDetails.Where(C => C.Id == item.SellerId))
+                    {
+
+                        <tr>
+                            <td> @rank </td>
+
+                            <td>
+                                @Getseller.Name
+                            </td>
+                            <td>
+                                @Getseller.MobileNumber
+                            </td>
+                            <td>
+                                <img src="@Url.Content(Getseller.ProfilePic)"
+                                     class="rounded-circle"
+                                     height="50"
+                                     width="50" />
+                            </td>
+
+                        </tr>
+
+                        rank++;
+
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>

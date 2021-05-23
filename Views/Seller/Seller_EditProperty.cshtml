@@ -1,0 +1,390 @@
+﻿@model HouseRentManagement.Models.Property_Details
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Seller_AddProperty</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/StyleSheet/SellerCSS/Seller-AddProperty.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark p-3"
+         style="background-color: rgba(26, 26, 31, 0.7)">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand ml-4">EDIT PROPERTY</a>
+            
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                </ul>
+                <ul class="navbar-nav navbar-right">
+                    <li class="nav-item mr-2 active">
+                        <a class="nav-link" href="@Url.Action("ViewPropertyDetails", new { @id = Model.Id })">Back to Home</a>
+
+                    </li>
+                    <li class="nav-item mr-2 ">
+                        <a role="button"
+                           class="btn btn-danger"
+                           href="@Url.Action("Logout")">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @using (Html.BeginForm("EditedProperty", "Seller", new { @id = Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Form Content -->
+        <div class="card float-left" id="form-content">
+            <div class="card-body">
+                <!-- Basic Info -->
+                <div id="basic-info" class="details">
+                    <h3 class="card-title text-xl-center">BASIC INFORMATION</h3>
+                    <div class="card-text">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Property_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Property_Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Property_Type, "Apartment", htmlAttributes: new { @id = "one" })
+                                @Html.Label("one", "ApartMent", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Property_Type, "Independent House", htmlAttributes: new { @id = "two" })
+                                @Html.Label("two", "Independent House", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Property_Type, "Independent Floor", htmlAttributes: new { @id = "three" })
+                                @Html.Label("three", "Independent Floor", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Property_Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_Locality, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Property_Locality, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Property_Locality, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_City, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Property_City, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Property_City, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_State, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Property_State, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Property_State, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_Pincode, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Property_Pincode, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Property_Pincode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="text-center">
+
+                            <button type="button"
+                                    id="move-to-infrastructure"
+                                    class="btn btn-primary col-8">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- infrastructure -->
+                <div id="infrastructure" class="details">
+                    <h3 class="card-title text-xl-center">INFRASTRUCTURE</h3>
+                    <div class="card-text">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Construction_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Construction_Status, "Ready To Move", htmlAttributes: new { @id = "status1" })
+                                @Html.Label("status1", "Ready to Move", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Construction_Status, "Under Construction", htmlAttributes: new { @id = "status2" })
+                                @Html.Label("status2", "Under Construction", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Construction_Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BHK, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.BHK, "1BHK", htmlAttributes: new { @id = "bhk1" })
+                                @Html.Label("bhk1", "1BHK", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.BHK, "2BHK", htmlAttributes: new { @id = "bhk2" })
+                                @Html.Label("bhk2", "2BHK", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.BHK, "3BHK", htmlAttributes: new { @id = "bhk3" })
+                                @Html.Label("bhk3", "3BHK", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.BHK, "3+BHK", htmlAttributes: new { @id = "bhk3plus" })
+                                @Html.Label("bhk3plus", "3+BHK", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.BHK, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Balcony, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Balcony, "1", htmlAttributes: new { @id = "bal1" })
+                                @Html.Label("bal1", "1", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Balcony, "2", htmlAttributes: new { @id = "bal2" })
+                                @Html.Label("bal2", "2", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Balcony, "3", htmlAttributes: new { @id = "bal3" })
+                                @Html.Label("bal3", "3", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Balcony, "3+", htmlAttributes: new { @id = "bal4" })
+                                @Html.Label("bal4", "3+", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Balcony, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Floors, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Floors, "1", htmlAttributes: new { @id = "floor1" })
+                                @Html.Label("floor1", "1", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Floors, "2", htmlAttributes: new { @id = "floor2" })
+                                @Html.Label("floor2", "2", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Floors, "3", htmlAttributes: new { @id = "floor3" })
+                                @Html.Label("floor3", "3", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Floors, "3+", htmlAttributes: new { @id = "floor4" })
+                                @Html.Label("floor4", "3+", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Floors, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Furnish_Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Furnish_Type, "Fully-Furnished", htmlAttributes: new { @id = "full" })
+                                @Html.Label("full", "Fully-Furnished", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Furnish_Type, "Semi-Furnished", htmlAttributes: new { @id = "semi" })
+                                @Html.Label("semi", "Semi-Furnished", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Furnish_Type, "Unfurnished", htmlAttributes: new { @id = "none" })
+                                @Html.Label("none", "Unfurnished", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Furnish_Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Parking_Facilities, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Parking_Facilities, "Available", htmlAttributes: new { @id = "Available" })
+                                @Html.Label("Available", "Available", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Parking_Facilities, "Not-Available", htmlAttributes: new { @id = "Not-Available" })
+                                @Html.Label("Not-Available", "Not-Available", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Parking_Facilities, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button"
+                                id="back-to-basicinfo"
+                                class="btn btn-secondary col-4">
+                            Previous
+                        </button>
+                        <button type="button"
+                                id="move-to-details"
+                                class="btn btn-primary col-4">
+                            Next
+                        </button>
+                    </div>
+                </div>
+                <!-- Other Details -->
+                <div id="other-details" class="details">
+                    <h3 class="card-title text-xl-center">OTHER DETAILS</h3>
+                    <div class="card-text">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Preferred_Tenant, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.Preferred_Tenant, "Family", htmlAttributes: new { @id = "Family" })
+                                @Html.Label("Family", "Family", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Preferred_Tenant, "Bachelors", htmlAttributes: new { @id = "Bachelors" })
+                                @Html.Label("Bachelors", "Bachelors", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Preferred_Tenant, "CompanyEmployee", htmlAttributes: new { @id = "CompanyEmployee" })
+                                @Html.Label("CompanyEmployee", "CompanyEmployee", htmlAttributes: new { @class = "radio-button" })
+                                @Html.ValidationMessageFor(model => model.Preferred_Tenant, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="input-group col-md-10">
+                                @Html.EditorFor(model => model.Property_Age, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Property_Age, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Facing, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="text-center col-md-10">
+                                @Html.RadioButtonFor(model => model.Facing, "North", htmlAttributes: new { @id = "North" })
+                                @Html.Label("North", "North", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "South", htmlAttributes: new { @id = "South" })
+                                @Html.Label("South", "South", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "East", htmlAttributes: new { @id = "East" })
+                                @Html.Label("East", "East", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "West", htmlAttributes: new { @id = "West" })
+                                @Html.Label("West", "West", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "North-East", htmlAttributes: new { @id = "North-East" })
+                                @Html.Label("North-East", "North-East", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "North-West", htmlAttributes: new { @id = "North-West" })
+                                @Html.Label("North-West", "North-West", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "South-East", htmlAttributes: new { @id = "South-East" })
+                                @Html.Label("South-East", "South-East", htmlAttributes: new { @class = "radio-button" })
+                                @Html.RadioButtonFor(model => model.Facing, "South-West", htmlAttributes: new { @id = "South-West" })
+                                @Html.Label("South-West", "South-West", htmlAttributes: new { @class = "radio-button" })
+
+                                @Html.ValidationMessageFor(model => model.Facing, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Property_Size, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="input-group col-md-10">
+                                @Html.EditorFor(model => model.Property_Size, new { htmlAttributes = new { @class = "form-control" } })
+                                <div class="input-group-append">
+                                    <div class="input-group-text">Sq.ft</div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Property_Size, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Monthly_Rent, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="input-group col-md-10">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">&#8377;</div>
+                                </div>
+                                @Html.EditorFor(model => model.Monthly_Rent, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monthly_Rent, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="input-group col-md-10 ">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button"
+                                id="back-to-infrastructure"
+                                class="btn btn-secondary col-4">
+                            Previous
+                        </button>
+                        <button type="button"
+                                id="move-to-images"
+                                class="btn btn-primary col-4">
+                            Next
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <!-- Add Images -->
+                <div id="images" class="details">
+                    <h3 class="card-title text-xl-center">ADD IMAGES</h3>
+                    <div class="card-text text-center">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Front_View_img, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <label>Existing Images</label><br />
+                                <img src="@Url.Content(Model.Front_View_img)" width="50" height="50" /><br />
+                                <input type="file" id="Front_View_img" name="propertyImage" class="form-control-file" />
+                                @Html.ValidationMessageFor(model => model.Front_View_img, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Hall_img, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <img src="@Url.Content(Model.Hall_img)" width="50" height="50" /><br />
+                                    <input type="file" id="Hall_img" name="propertyImage" class="form-control-file" />
+                                    @Html.ValidationMessageFor(model => model.Hall_img, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Bedroom_img, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <img src="@Url.Content(Model.Bedroom_img)" width="50" height="50" /><br />
+                                    <input type="file" id="Bedroom_img" name="propertyImage" class="form-control-file" />
+                                    @Html.ValidationMessageFor(model => model.Bedroom_img, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Kitchen_img, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <img src="@Url.Content(Model.Kitchen_img)" width="50" height="50" /><br />
+                                    <input type="file" id="Kitchen_img" name="propertyImage" class="form-control-file" />
+                                    @Html.ValidationMessageFor(model => model.Kitchen_img, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="button"
+                                        id="back-to-details"
+                                        class="btn btn-secondary col-2">
+                                    Previous
+                                </button>
+                                <button type="submit" class="btn btn-success col-6">Confirm</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+    <!-- Side Menu -->
+    <div class="card float-right" id="side-menu">
+        <div class="card-body p-0">
+            <div class="card-text">
+                <div id="menu">
+                    <ul class="container">
+                        <li id="basic-info-menu">Basic Information</li>
+                        <li id="infrastructure-menu">Inner Infrastructure</li>
+                        <li id="other-details-menu">Other Details</li>
+                        <li id="images-menu">Add Images</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/Seller/Add-Property.js"></script>
+
+</body>
+</html>
