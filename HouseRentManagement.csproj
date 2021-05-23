@@ -329,6 +329,7 @@
     <Folder Include="Images\Index\" />
     <Folder Include="Images\PropertyImages\" />
     <Folder Include="Images\SellerImages\" />
+    <Folder Include="ScreenShots\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
