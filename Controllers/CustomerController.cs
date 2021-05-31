@@ -37,10 +37,6 @@ namespace HouseRentManagement.Controllers
             {
                 AvailableProperty.AddRange((List<Property_Details>)TempData["Filteredhouses"]);
                 Id = 0;
-                if (AvailableProperty == null)
-                {
-                    TempData["NoResult"] = "No Results found";
-                }
             }
             else
             {

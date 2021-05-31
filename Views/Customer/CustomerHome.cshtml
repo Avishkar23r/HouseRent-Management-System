@@ -97,12 +97,6 @@
                 PROPERTIES
                 <i class="fa fa-home" aria-hidden="true"></i>
             </h4>
-
-            @if (TempData["NoResult"] != null)
-            {
-                <label class="p-3 font-weight-bolder col-10">@TempData["NoResult"] </label>
-
-            }
             @foreach (var item in Model.PropertyDetails)
             {
                 <div class="card mb-3" style="max-width: 100%; border-radius: 10px">
